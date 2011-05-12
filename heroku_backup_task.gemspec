@@ -7,11 +7,11 @@ Gem::Specification.new do |gem|
   gem.name     = "heroku_backup_task"
   gem.version  = HerokuBackupTask::VERSION
 
-  gem.author   = "David Dollar"
-  gem.email    = "ddollar@gmail.com"
-  gem.homepage = "http://github.com/ddollar/heroku_backup_task"
+  gem.authors   = "David Dollar, Joe Sak"
+  gem.email    = "joe@joesak.com"
+  gem.homepage = "http://github.com/joemsak/heroku_backup_task"
 
-  gem.summary  = "Automate your Heroku backups"
+  gem.summary  = "Automate your Heroku backups. Many thanks & kudos to David for writing this gem."
 
   gem.files = Dir["**/*"].select { |d| d =~ %r{^(README|bin/|data/|ext/|lib/|spec/|test/)} }
 
