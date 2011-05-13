@@ -1,5 +1,10 @@
 # heroku\_backup\_task
 
+## FYI: automatic backups are now in private beta
+
+Kinda thought this was right around the corner ;)
+[http://addons.heroku.com/pgbackups](http://addons.heroku.com/pgbackups)
+
 ## Description
 
 A simple helper to automate your [Heroku](http://heroku.com) app [backups](http://addons.heroku.com/pgbackups)
