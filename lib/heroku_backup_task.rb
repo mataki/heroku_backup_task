@@ -1,4 +1,6 @@
 require "heroku"
+require "fog"
+require "open-uri"
 require "pgbackups/client"
 
 module HerokuBackupTask; class << self
@@ -37,6 +39,84 @@ module HerokuBackupTask; class << self
       log "backing up: #{db}"
       client.create_transfer(db_url, db, nil, "BACKUP", :expire => true)
     end
+  end
+
+  def execute_and_store_s3
+    execute
+
+    log "starting sending backups"
+
+    while !transfering.empty? or !unbackuped.empty?
+      unbackuped.each do |transfer|
+        download(transfer)
+
+        filename = backup_filename(transfer["to_url"])
+        send_s3(transfer)
+      end
+
+      sleep 10
+    end
+  end
+
+  def backup_filename(to_url)
+    parts = to_url.split('/')
+    parts.last
+  end
+
+  def transfering
+    transfers.select{ |transfer| transfer["finished_at"].nil? }
+  end
+
+  def unbackuped
+    transfers.select{ |transfer| !transfer["public_url"].nil? }.select{ |transfer| !backuped.include?(backup_filename(transfer["to_url"])) }
+  end
+
+  def transfers(cache = true)
+    client.get_transfers
+  end
+
+  def backuped
+    s3_dir.files.map{ |file| file.key }
+  end
+
+  def download(transfer)
+    filename = backup_filename(transfer["to_url"])
+    log "download #{filename}"
+
+    File.open(filepath(filename), "wb") do |file|
+      OpenURI.open_uri(transfer["public_url"]) do |dl|
+        file.write(dl.read)
+      end
+    end
+  end
+
+  def send_s3(transfer)
+    filename = backup_filename(transfer["to_url"])
+    log "send #{filename} to S3"
+
+    file = s3_dir.files.create(:key => backup_filename(transfer["to_url"]),
+                               :body => File.open(filepath(filename)),
+                               :public => false)
+    file.save
+    log "end sending"
+  end
+
+  def filepath(filename)
+    if defined?(Rails)
+      File.join(Rails.root, "tmp", filename)
+    else
+      File.join("tmp", filename)
+    end
+  end
+
+  def s3_connection
+    @s3_connection ||= Fog::Storage.new(:provider => 'AWS',
+                                        :aws_secret_access_key => ENV["AWS_S3_SECRET_KEY"],
+                                        :aws_access_key_id => ENV["AWS_S3_KEY_ID"])
+  end
+
+  def s3_dir
+    s3_connection.directories.get(ENV["BACKUP_BACKET"])
   end
 
 end; end

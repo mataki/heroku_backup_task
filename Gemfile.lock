@@ -1,7 +1,20 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    builder (3.0.0)
     configuration (1.2.0)
+    excon (0.6.5)
+    fog (0.10.0)
+      builder
+      excon (~> 0.6.5)
+      formatador (~> 0.2.0)
+      mime-types
+      multi_json (~> 1.0.3)
+      net-scp (~> 1.0.4)
+      net-ssh (~> 2.1.4)
+      nokogiri (~> 1.5.0)
+      ruby-hmac
+    formatador (0.2.0)
     heroku (2.1.2)
       launchy (>= 0.3.2)
       rest-client (~> 1.6.1)
@@ -10,14 +23,21 @@ GEM
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
     mime-types (1.16)
+    multi_json (1.0.3)
+    net-scp (1.0.4)
+      net-ssh (>= 1.99.1)
+    net-ssh (2.1.4)
+    nokogiri (1.5.0)
     rake (0.8.7)
     rest-client (1.6.1)
       mime-types (>= 1.16)
+    ruby-hmac (0.4.0)
     term-ansicolor (1.0.5)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  fog
   heroku (>= 1.13.7)
   rake

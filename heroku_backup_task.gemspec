@@ -17,4 +17,5 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "heroku", ">= 1.13.7"
   gem.add_dependency "rake"
+  gem.add_dependency "fog"
 end

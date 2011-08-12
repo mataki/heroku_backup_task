@@ -34,7 +34,7 @@ Make sure you install the pgbackups addon
 By default, `heroku_backup_task` will back up `DATABASE_URL`. You can change this with:
 
     heroku config:add HEROKU_BACKUP_DATABASES="SOME_DATABASE_URL,OTHER_DATABASE_URL"
-    
+
 ## Usage
 
 ### NOTE: `heroku_backup_task` will expire your oldest backup to make room for a new backup if necessary.
@@ -47,6 +47,15 @@ You will see something like this in your cron logs
 
     [Thu Nov 18 12:59:56 -0500 2010] starting heroku backup task
     [Thu Nov 18 12:59:57 -0500 2010] backing up: DATABASE_URL
+
+## Send dump file to Own S3
+
+Set config
+
+    heroku config:add AWS_S3_SECRET_KEY="xxxx" AWS_S3_KEY_ID="xxxx" BACKUP_BACKET="xxxx"
+
+    # Rakefile
+    task :cron => :heroku_backup_and_store_s3
 
 ## License
 
