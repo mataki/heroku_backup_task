@@ -1,6 +1,9 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    active_support (3.0.0)
+      activesupport (= 3.0.0)
+    activesupport (3.0.0)
     builder (3.0.0)
     configuration (1.2.0)
     excon (0.6.5)
@@ -19,6 +22,7 @@ GEM
       launchy (>= 0.3.2)
       rest-client (~> 1.6.1)
       term-ansicolor (~> 1.0.5)
+    i18n (0.6.0)
     launchy (0.4.0)
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
@@ -38,6 +42,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_support
   fog
   heroku (>= 1.13.7)
+  i18n
   rake

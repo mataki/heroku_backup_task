@@ -2,6 +2,7 @@ require "heroku"
 require "fog"
 require "open-uri"
 require "pgbackups/client"
+require 'active_support/core_ext'
 
 module HerokuBackupTask; class << self
 
@@ -99,6 +100,15 @@ module HerokuBackupTask; class << self
                                :public => false)
     file.save
     log "end sending"
+  end
+
+  def remove_old_backups
+    s3_dir.files.each do |file|
+      if file.last_modified < 2.week.ago
+        log "destroy #{file.key}"
+        file.destroy
+      end
+    end
   end
 
   def filepath(filename)
