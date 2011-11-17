@@ -50,6 +50,7 @@ module HerokuBackupTask; class << self
       unbackuped.each do |transfer|
         download(transfer)
 
+        filename = backup_filename(transfer["to_url"])
         send_s3(transfer)
       end
 
@@ -59,7 +60,7 @@ module HerokuBackupTask; class << self
 
   def backup_filename(to_url)
     parts = to_url.split('/')
-    ["buckups", parts.last].join('/')
+    parts.last
   end
 
   def transfering
