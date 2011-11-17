@@ -104,7 +104,7 @@ module HerokuBackupTask; class << self
 
   def remove_old_backups
     s3_dir.files.each do |file|
-      if file.last_modified < 2.week.ago
+      if file.last_modified < 1.month.ago
         log "destroy #{file.key}"
         file.destroy
       end
