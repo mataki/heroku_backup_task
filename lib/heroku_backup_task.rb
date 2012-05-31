@@ -1,7 +1,8 @@
 require "heroku"
 require "fog"
 require "open-uri"
-require "pgbackups/client"
+
+require "heroku/client/pgbackups"
 require 'active_support/core_ext'
 
 module HerokuBackupTask; class << self
@@ -15,7 +16,7 @@ module HerokuBackupTask; class << self
   end
 
   def client
-    @client ||= PGBackups::Client.new(ENV["PGBACKUPS_URL"])
+    @client ||= Heroku::Client::Pgbackups.new(ENV["PGBACKUPS_URL"])
   end
 
   def databases
