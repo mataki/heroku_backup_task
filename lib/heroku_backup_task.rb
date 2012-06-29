@@ -127,7 +127,7 @@ module HerokuBackupTask; class << self
   end
 
   def s3_dir
-    s3_connection.directories.get(ENV["BACKUP_BACKET"])
+    s3_connection.directories.get(ENV["BACKUP_BUCKET"])
   end
 
 end; end
