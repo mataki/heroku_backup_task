@@ -52,7 +52,7 @@ You will see something like this in your cron logs
 
 Set config
 
-    heroku config:add AWS_S3_SECRET_KEY="xxxx" AWS_S3_KEY_ID="xxxx" BACKUP_BACKET="xxxx"
+    heroku config:add AWS_S3_SECRET_KEY="xxxx" AWS_S3_KEY_ID="xxxx" BACKUP_BUCKET="xxxx"
 
     # Rakefile
     task :cron => :heroku_backup_and_store_s3
