@@ -70,7 +70,7 @@ module HerokuBackupTask; class << self
   end
 
   def unbackuped
-    transfers.select{|t| !t["error_at"].nil? }.select{ |transfer| !transfer["public_url"].nil? }.select{ |transfer| !backuped.include?(backup_filename(transfer["to_url"])) }
+    transfers.select{|t| !t["error_at"] }.select{ |transfer| !transfer["public_url"].nil? }.select{ |transfer| !backuped.include?(backup_filename(transfer["to_url"])) }
   end
 
   def transfers(cache = true)
