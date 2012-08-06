@@ -1,7 +1,4 @@
 source "http://rubygems.org"
 
-gem "heroku", ">= 2.26.3"
-gem "rake"
-gem "fog"
-gem "active_support"
-gem "i18n"
+# Specify your gem's dependencies in awesome_imports.gemspec
+gemspec
