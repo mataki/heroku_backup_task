@@ -18,4 +18,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency "heroku", ">= 2.26.3"
   gem.add_dependency "rake"
   gem.add_dependency "fog"
+
+  gem.add_development_dependency 'airbrake'
 end
