@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
 
   gem.files = Dir["**/*"].select { |d| d =~ %r{^(README|bin/|data/|ext/|lib/|spec/|test/)} }
 
-  gem.add_dependency "heroku", ">= 2.26.3"
+  gem.add_dependency "heroku", ">= 2.30.2"
   gem.add_dependency "rake"
   gem.add_dependency "fog"
   gem.add_dependency "activesupport"
